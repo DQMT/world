@@ -9,6 +9,8 @@ dependency-reduced-pom.xml
 
 ### maven ###
 mvnw.*
+mvnw
+.mvn/
 
 
 ### STS ###
