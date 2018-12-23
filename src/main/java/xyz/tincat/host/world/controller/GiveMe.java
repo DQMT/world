@@ -1,13 +1,22 @@
 package xyz.tincat.host.world.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.mapdb.HTreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.tincat.host.world.store.Cache;
 import xyz.tincat.host.world.util.DownloadUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,13 +25,20 @@ import java.util.Map;
  * @ Version:     0.1
  */
 @Controller
-@RequestMapping("/world")
+@RequestMapping("/world/giveme")
+@Slf4j
 public class GiveMe {
 
     @Autowired
     private DownloadUtil downloadUtil;
 
-    @RequestMapping("giveme")
+    private Map<String, String> map;
+
+    public GiveMe() {
+        map = Cache.getCache().createMap("giveme");
+    }
+
+    @RequestMapping("")
     public String giveme(Model model) {
         model.addAttribute("s", "Give");
         model.addAttribute("k", "Me");
@@ -30,13 +46,50 @@ public class GiveMe {
     }
 
     @RequestMapping("req")
-    public String req(Model model,@RequestParam String path) {
-        System.out.println("get req! fpath="+path );
+    @ResponseBody
+    public String req(@RequestParam String path) {
+        log.info("get req! file url=" + path);
+        String fileName = null;
         try {
-            downloadUtil.downLoadFromUrl(path);
-        } catch (IOException e) {
+            String s = downloadUtil.downLoadFromUrl(path);
+            fileName = s.substring(s.lastIndexOf(File.separator) + 1);
+            map.put(fileName, s);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return "giveme";
+        return fileName;
+    }
+
+    @RequestMapping("rec")
+    public void  rec(HttpServletRequest req, HttpServletResponse resp){
+        String fileName = req.getParameter("file");
+        String savePath = map.get(fileName);
+        if (savePath == null) {
+            log.warn("can get savePath for: {} ,maybe it's deleted.", fileName);
+            return;
+        }
+        File file = new File(savePath);
+        resp.setContentType("application/octet-stream");
+        resp.setHeader("Content-Disposition","attachment;filename=" + fileName);
+        resp.setContentLength((int) file.length());
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[128];
+            int count = 0;
+            while ((count = fis.read(buffer)) > 0) {
+                resp.getOutputStream().write(buffer, 0, count);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resp.getOutputStream().flush();
+                resp.getOutputStream().close();
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -2,19 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>giveme</title>
-    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/giveme.js?randomId=<%=Math.random()%>"></script>
     <style type="text/css">
-       .fp {width:800px}
+       #fp {width:800px}
     </style>
+
 </head>
 <body>
-<p> ...?</p>
-<form action="req" method="get">
-    where is it: <input  class="fp" type="text" name="path">
-    <input type="submit" value="OK">
-</form>
-<p>here it is:</p>
-<p class="tar"></p>
+<p> Need help...?</p>
+Tell me where is it : <input  id="fp" type="text" name="path">
+<input  onclick="req();" type="submit" value="OK">
+<p>Pls find it below:</p>
+<div id="tar">
+    <!--<a class="link" href="javascript:void(0);"></a>-->
+</div>
+
 </body>
 
 </html>

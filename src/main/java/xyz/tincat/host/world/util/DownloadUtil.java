@@ -1,11 +1,15 @@
 package xyz.tincat.host.world.util;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * @ Date       ：Created in 17:07 2018/12/22
@@ -13,17 +17,29 @@ import java.net.URL;
  * @ Version:     0.1
  */
 @Component
+@Slf4j
 public class DownloadUtil {
 
+    @Value("${save.folder}")
+    private String defaultSaveFolder;
 
-    @Value("${save.path}")
-    private String defaultSavePath;
-
-    public String downLoadFromUrl(String urlStr) throws IOException {
+    public String downLoadFromUrl(String urlStr) throws Exception {
         String[] sp = urlStr.split("/");
-        String filename = sp[sp.length - 1];
-        String savePath = defaultSavePath == null ? "D:/" : defaultSavePath;
-        return downLoadFromUrl(urlStr, filename, savePath);
+        String fileName = sp[sp.length - 1];
+        String fileType = URLConnection.guessContentTypeFromName(urlStr);
+        MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+        String ext = fileName;
+        try {
+             ext = allTypes.forName(fileType).getExtension();
+            log.info("guess file extension = {}", ext);
+        } catch (MimeTypeException e) {
+            e.printStackTrace();
+        }
+        if (!fileName.endsWith(ext)) {
+            fileName = StringUtil.newRandomString(10)+"."+fileType;
+        }
+        String savePath = defaultSaveFolder == null ? "D://world//" : defaultSaveFolder;
+        return downLoadFromUrl(urlStr, fileName, savePath);
     }
 
     /**
@@ -35,6 +51,9 @@ public class DownloadUtil {
      * @throws IOException
      */
     public String downLoadFromUrl(String urlStr, String fileName, String savePath) throws IOException {
+        log.info("url = {}", urlStr);
+        log.info("fileName = {}", fileName);
+        log.info("savePath = {}", savePath);
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         //设置超时间为3秒
@@ -52,8 +71,10 @@ public class DownloadUtil {
         if (!saveDir.exists()) {
             saveDir.mkdir();
         }
-        File file = new File(saveDir + File.separator + fileName);
-        FileOutputStream fos = new FileOutputStream(file);
+        File file;
+        FileOutputStream fos;
+        file = new File(saveDir + File.separator + fileName);
+        fos = new FileOutputStream(file);
         fos.write(getData);
         if (fos != null) {
             fos.close();
@@ -61,8 +82,10 @@ public class DownloadUtil {
         if (inputStream != null) {
             inputStream.close();
         }
-        System.out.println("info:" + url + " download success");
-        return saveDir + File.separator + fileName;
+        String save = saveDir + File.separator + fileName;
+        log.info("file: {} download success", url);
+        log.info("save: {}",save);
+        return save;
     }
 
 
