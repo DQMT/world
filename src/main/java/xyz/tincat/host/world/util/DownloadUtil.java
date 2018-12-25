@@ -3,8 +3,10 @@ package xyz.tincat.host.world.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import xyz.tincat.host.world.config.WorldConstants;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -20,8 +22,8 @@ import java.net.URLConnection;
 @Slf4j
 public class DownloadUtil {
 
-    @Value("${save.folder}")
-    private String defaultSaveFolder;
+    @Autowired
+    private WorldConstants constants;
 
     public String downLoadFromUrl(String urlStr) throws Exception {
         String[] sp = urlStr.split("/");
@@ -38,7 +40,7 @@ public class DownloadUtil {
         if (!fileName.endsWith(ext)) {
             fileName = StringUtil.newRandomString(10)+"."+fileType;
         }
-        String savePath = defaultSaveFolder == null ? "D://world//" : defaultSaveFolder;
+        String savePath = constants.saveFolder == null ? "D://worldDownload//" : constants.saveFolder;
         return downLoadFromUrl(urlStr, fileName, savePath);
     }
 

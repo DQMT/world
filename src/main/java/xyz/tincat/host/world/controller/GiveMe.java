@@ -40,8 +40,6 @@ public class GiveMe {
 
     @RequestMapping("")
     public String giveme(Model model) {
-        model.addAttribute("s", "Give");
-        model.addAttribute("k", "Me");
         return "giveme";
     }
 
