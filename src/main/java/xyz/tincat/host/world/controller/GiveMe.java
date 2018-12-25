@@ -25,7 +25,7 @@ import java.util.Map;
  * @ Version:     0.1
  */
 @Controller
-@RequestMapping("/world/giveme")
+@RequestMapping("/giveme")
 @Slf4j
 public class GiveMe {
 

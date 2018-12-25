@@ -26,7 +26,7 @@ function req() {
     const url = $("#fp").val();
     console.log(url);
     $.ajax({
-        url: "/world/giveme/req",
+        url: "/giveme/req",
         method:'GET',
         async: true,
         data: {"path": url},
@@ -42,7 +42,7 @@ function req() {
 
 function rec(file) {
     console.log('file=' + file);
-    $.download('/world/giveme/rec','file='+file,'post' );
+    $.download('/giveme/rec','file='+file,'post' );
     /*$.ajax({
         url: "/world/giveme/rec",
         method:'GET',
