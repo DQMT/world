@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import xyz.tincat.host.world.config.WorldConstants;
 
@@ -32,13 +31,13 @@ public class DownloadUtil {
         MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
         String ext = fileName;
         try {
-             ext = allTypes.forName(fileType).getExtension();
+            ext = allTypes.forName(fileType).getExtension();
             log.info("guess file extension = {}", ext);
         } catch (MimeTypeException e) {
             e.printStackTrace();
         }
-        if (!fileName.endsWith(ext)) {
-            fileName = StringUtil.newRandomString(10)+"."+fileType;
+        if (!FileUtil.sameFileType(fileName, ext)) {
+            fileName = StringUtil.newRandomString(10) + "." + fileType;
         }
         String savePath = constants.saveFolder == null ? "D://worldDownload//" : constants.saveFolder;
         return downLoadFromUrl(urlStr, fileName, savePath);
@@ -86,7 +85,7 @@ public class DownloadUtil {
         }
         String save = saveDir + File.separator + fileName;
         log.info("file: {} download success", url);
-        log.info("save: {}",save);
+        log.info("save: {}", save);
         return save;
     }
 

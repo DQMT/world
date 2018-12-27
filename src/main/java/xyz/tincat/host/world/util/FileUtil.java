@@ -32,4 +32,14 @@ public class FileUtil {
         return true;
     }
 
+    public static boolean sameFileType(String fileName, String etx) {
+        if (fileName.endsWith(etx)) {
+            return true;
+        }
+        if (etx.equals(".bin") && fileName.endsWith(".exe")) {
+            return true;
+        }
+        return false;
+    }
+
 }
