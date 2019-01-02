@@ -5,14 +5,23 @@
     <script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
     <script>document.write("<script type='text/javascript' src='/giveme.js?v=" + Date.now() + "'><\/script>");</script>
     <style type="text/css">
-       #fp {width:800px}
+        #fp {
+            width: 800px
+        }
     </style>
 </head>
 <body>
 <p> Need help...?</p>
-Tell me where is it : <input id="fp" type="text" name="path">
-<input onclick="req();" type="submit" value="OK">
-<p>Pls find it below:</p>
+<ul>
+    <li>Tell me where is it :
+        <input id="fp" type="text" name="path">
+        <input onclick="req();" type="submit" value="OK">
+    </li>
+    <li>progress :
+        <progress id="proc">55</progress>
+    </li>
+    <li><p>Pls find it below:</p></li>
+</ul>
 <div id="tar">
     <!--<a class="link" href="javascript:void(0);"></a>-->
 </div>

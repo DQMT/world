@@ -22,9 +22,25 @@ function addLink(file) {
     $("#tar").html(np);
 }
 
+function getProcess(reqUrl) {
+    $.ajax({
+        url: "/giveme/process",
+        method:'GET',
+        async: true,
+        data: {"path": reqUrl},
+        success: function (data) {
+            console.log('res process = ' + data);
+            $("#proc").val(data);
+        },
+        error: function (e) {
+            alert(e);
+        }
+    })
+}
 function req() {
     const url = $("#fp").val();
     console.log(url);
+    var t1 = window.setInterval(getProcess(url),500);
     $.ajax({
         url: "/giveme/req",
         method:'GET',

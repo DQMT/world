@@ -1,7 +1,6 @@
 package xyz.tincat.host.world.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mapdb.HTreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.tincat.host.world.store.Cache;
-import xyz.tincat.host.world.util.DownloadUtil;
+import xyz.tincat.host.world.service.DownloadService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,7 +28,7 @@ import java.util.Map;
 public class GiveMe {
 
     @Autowired
-    private DownloadUtil downloadUtil;
+    private DownloadService downloadService;
 
     private Map<String, String> map;
 
@@ -49,7 +47,7 @@ public class GiveMe {
         log.info("get req! file url=" + path);
         String fileName = null;
         try {
-            String s = downloadUtil.downLoadFromUrl(path);
+            String s = downloadService.downLoadFromUrl(path);
             fileName = s.substring(s.lastIndexOf(File.separator) + 1);
             map.put(fileName, s);
         } catch (Exception e) {
@@ -90,4 +88,12 @@ public class GiveMe {
             }
         }
     }
+
+    @RequestMapping("process")
+    @ResponseBody
+    public Long getProcess(@RequestParam String path) {
+        log.info("get process! file url=" + path);
+        return downloadService.getProcess(path);
+    }
+
 }

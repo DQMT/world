@@ -38,6 +38,13 @@ public class Cache {
                 .createOrOpen();
     }
 
+    public HTreeMap<String, Long> createLongMap(String name) {
+        return db.hashMap(name)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG)
+                .createOrOpen();
+    }
+
     public void clearMap(String name){
         db.hashMap(name).createOrOpen().clear();
     }
