@@ -15,45 +15,52 @@ jQuery.download = function(url, data, method){ // 获得url和data
 
 function addLink(file) {
     const p = $("#tar").html();
-    console.log('p=' + p);
-    console.log('file=' + file);
+    // console.log('p=' + p);
+    // console.log('file=' + file);
     var np = p+'</br>'+'<a class="link" onclick="rec('+"'"+file+"'"+');" href="javascript:void(0);">'+file+'</a>';
-    console.log('np=' + np);
+    // console.log('np=' + np);
     $("#tar").html(np);
 }
 
-function getProcess(reqUrl) {
-    $.ajax({
-        url: "/giveme/process",
-        method:'GET',
-        async: true,
-        data: {"path": reqUrl},
-        success: function (data) {
-            console.log('res process = ' + data);
-            $("#proc").val(data);
-        },
-        error: function (e) {
-            alert(e);
-        }
-    })
-}
+
 function req() {
-    const url = $("#fp").val();
-    console.log(url);
-    var t1 = window.setInterval(getProcess(url),500);
+    const reqUrl = $("#fp").val();
+    var gp = setInterval(getProcess,500);
     $.ajax({
         url: "/giveme/req",
         method:'GET',
         async: true,
-        data: {"path": url},
+        data: {"path": reqUrl},
         success: function (data) {
             console.log('res data = ' + data);
             addLink(data);
         },
         error: function (e) {
-            alert(e);
+            alert(JSON.stringify(e));
         }
-    })
+    });
+    function getProcess() {
+        // const reqUrl = $("#fp").val();
+        console.log("getProcess :" + reqUrl);
+        $.ajax({
+            url: "/giveme/process",
+            method:'GET',
+            async: true,
+            data: {"path": reqUrl},
+            success: function (data) {
+                console.log('get process = ' + data);
+                $("#proc").val(data);
+                if(data == 100) {
+                    clearInterval(gp);
+                }
+            },
+            error: function (e) {
+                clearInterval(gp);
+                alert(JSON.stringify(e));
+                $("#proc").val(0);
+            }
+        })
+    }
 }
 
 function rec(file) {

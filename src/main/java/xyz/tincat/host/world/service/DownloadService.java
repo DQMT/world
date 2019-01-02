@@ -34,20 +34,7 @@ public class DownloadService {
     }
 
     public String downLoadFromUrl(String urlStr) throws Exception {
-        String[] sp = urlStr.split("/");
-        String fileName = sp[sp.length - 1];
-        String fileType = URLConnection.guessContentTypeFromName(urlStr);
-        MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
-        String ext = fileName;
-        try {
-            ext = allTypes.forName(fileType).getExtension();
-            log.info("guess file extension = {}", ext);
-        } catch (MimeTypeException e) {
-            e.printStackTrace();
-        }
-        if (!FileUtil.sameFileType(fileName, ext)) {
-            fileName = StringUtil.newRandomString(10) + "." + fileType;
-        }
+        String fileName = FileUtil.guessFilenameFromUrl(urlStr);
         String savePath = constants.saveFolder == null ? "D://worldDownload//" : constants.saveFolder;
         //文件保存位置
         File saveDir = new File(savePath);
@@ -97,9 +84,10 @@ public class DownloadService {
         return destFile;
     }
 
-    public Long getProcess(String fileUrl) {
-        log.info("get process for " + fileUrl + " : " + map.get(fileUrl));
-        return map.get(fileUrl);
+    public long getProcess(String fileUrl) {
+        Long process = map.get(fileUrl);
+        log.info("get process for " + fileUrl + " : " + process);
+        return process == null ? 0 : process;
     }
 
     public static void main(String[] args) {

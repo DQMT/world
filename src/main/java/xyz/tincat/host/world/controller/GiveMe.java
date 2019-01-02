@@ -59,6 +59,9 @@ public class GiveMe {
     @RequestMapping("rec")
     public void  rec(HttpServletRequest req, HttpServletResponse resp){
         String fileName = req.getParameter("file");
+        if (fileName == null) {
+            return;
+        }
         String savePath = map.get(fileName);
         if (savePath == null) {
             log.warn("can get savePath for: {} ,maybe it's deleted.", fileName);
@@ -91,7 +94,7 @@ public class GiveMe {
 
     @RequestMapping("process")
     @ResponseBody
-    public Long getProcess(@RequestParam String path) {
+    public long getProcess(@RequestParam String path) {
         log.info("get process! file url=" + path);
         return downloadService.getProcess(path);
     }

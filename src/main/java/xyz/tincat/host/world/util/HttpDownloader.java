@@ -1,11 +1,14 @@
 package xyz.tincat.host.world.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+@Slf4j
 public class HttpDownloader {
     private final String url, destFilename;
 
