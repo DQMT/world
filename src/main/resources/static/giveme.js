@@ -52,6 +52,7 @@ function req() {
                 $("#proc").val(data);
                 if(data == 100) {
                     clearInterval(gp);
+                    $("#proc").val(0);
                 }
             },
             error: function (e) {
