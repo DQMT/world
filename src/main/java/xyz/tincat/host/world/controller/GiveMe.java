@@ -51,6 +51,7 @@ public class GiveMe {
             fileName = s.substring(s.lastIndexOf(File.separator) + 1);
             map.put(fileName, s);
         } catch (Exception e) {
+            fileName = null;
             e.printStackTrace();
         }
         return fileName;
