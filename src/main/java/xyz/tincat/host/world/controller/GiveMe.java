@@ -96,7 +96,7 @@ public class GiveMe {
     @RequestMapping("process")
     @ResponseBody
     public long getProcess(@RequestParam String path) {
-        log.info("get process! file url=" + path);
+        log.debug("get process! file url=" + path);
         return downloadService.getProcess(path);
     }
 

@@ -65,7 +65,7 @@ public class DownloadService {
             @Override
             public void onProgress(long progress) {
                 map.put(urlStr, progress);
-                log.info("onProgress for {} : {}", urlStr, String.valueOf(map.get(urlStr)));
+                log.debug("onProgress for {} : {}", urlStr, String.valueOf(map.get(urlStr)));
             }
 
             @Override
@@ -86,7 +86,7 @@ public class DownloadService {
 
     public long getProcess(String fileUrl) {
         Long process = map.get(fileUrl);
-        log.info("get process for " + fileUrl + " : " + process);
+        log.debug("get process for " + fileUrl + " : " + process);
         return process == null ? 0 : process;
     }
 

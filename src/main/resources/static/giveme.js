@@ -33,7 +33,7 @@ function req() {
         data: {"path": reqUrl},
         success: function (data) {
             console.log('res data = ' + data);
-            if(data == null){
+            if(data === null || data === ''){
                 clearInterval(gp);
             }else{
                 addLink(data);

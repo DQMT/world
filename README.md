@@ -1,5 +1,5 @@
 # world
-The World
+The World is a toolbox.
 
 ## configuration
 application.properties
