@@ -9,9 +9,9 @@ fi
 mkdir -p ${WORLD_PATH}
 cd ..
 #git pull
-mvn clean package
+mvn clean package -Dmaven.test.skip=true
 
-cp ${WORLD_PATH}/bin/* ${WORLD_PATH}
+cp bin/* ${WORLD_PATH}
 chmod +x ${WORLD_PATH}/*
 rm -f ${WORLD_PATH}/install.sh
 cp target/world-0.0.1-SNAPSHOT.jar ${WORLD_PATH}/${JAR_NAME}.jar
