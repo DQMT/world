@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>blackboard</title>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script>document.write("<script type='text/javascript' src='/blackboard.js?v=" + Date.now() + "'><\/script>");</script>
+</head>
+
+<body>
+<p>Hello world.I am just a Blackboard</p>
+<input id="k" style="visibility:hidden" th:value="${k}"/>
+<input id="s" style="visibility:hidden" th:value="${s}"/>
+<textarea id="t1" th:cols="100" th:rows="30"  style="display:inline-block" ></textarea>
+<button type="button" onclick="cooo();" style="height: 80px;width: 80px;display:inline-block">Compress</button>
+<button type="button" onclick="gooo();" style="height: 80px;width: 80px;display:inline-block">OK</button>
+</body>
+
+</html>
