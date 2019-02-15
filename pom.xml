@@ -66,7 +66,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -82,9 +82,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                &lt;!&ndash; The configuration of the plugin &ndash;&gt;
+                <!-- The configuration of the plugin -->
                 <configuration>
-                    &lt;!&ndash; Specifies the configuration file of the assembly plugin &ndash;&gt;
+                    <!-- Specifies the configuration file of the assembly plugin -->
                     <descriptors>
                         <descriptor>src/main/assembly/package.xml</descriptor>
                     </descriptors>
@@ -98,7 +98,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
        <!-- <resources>
             <resource>

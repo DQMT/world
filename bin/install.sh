@@ -15,6 +15,10 @@ cp bin/* ${WORLD_PATH}
 chmod +x ${WORLD_PATH}/*
 rm -f ${WORLD_PATH}/install.sh
 cp target/world-0.0.1-SNAPSHOT.jar ${WORLD_PATH}/${JAR_NAME}.jar
-echo "installed world at $WORLD_PATH"
+cd target
+tar -zxvf world-0.0.1-SNAPSHOT-resources.tar
+cp /target/world-0.0.1-SNAPSHOT-resources/application.properties ${WORLD_PATH}/
+
+echo "SUCCESS : installed world at $WORLD_PATH"
 
 
