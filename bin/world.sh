@@ -1,5 +1,5 @@
 #!/bin/sh
-APP_SRC_PATH=""
+APP_SRC_PATH=
 APP_NAME="world"
 JAVA_OPTS="-Xms256m -Xmx256m -Dfile.encoding=UTF-8"
 JAR_NAME="world-latest"
@@ -74,7 +74,7 @@ showlog() {
 
 upgrade() {
     WORLD_PATH=`pwd`
-    if [[ ${APP_SRC_PATH} -eq "" ]]; then
+    if [[ -z ${APP_SRC_PATH} ]]; then
         echo "please set APP_SRC_PATH in this script first!"
         exit 1
     elif [[ ! -d ${APP_SRC_PATH} ]]; then
