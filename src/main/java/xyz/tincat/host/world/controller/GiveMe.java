@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * This page can download something outsides GFW for you
  * @ Date       ：Created in 15:17 2018/12/22
  * @ Modified By：
  * @ Version:     0.1

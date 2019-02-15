@@ -1,18 +1,14 @@
 package xyz.tincat.host.world.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tika.mime.MimeTypeException;
-import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.tincat.host.world.config.WorldConstants;
 import xyz.tincat.host.world.store.Cache;
 import xyz.tincat.host.world.util.FileUtil;
 import xyz.tincat.host.world.util.HttpDownloader;
-import xyz.tincat.host.world.util.StringUtil;
 
 import java.io.*;
-import java.net.URLConnection;
 import java.util.Map;
 
 /**
