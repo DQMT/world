@@ -12,7 +12,7 @@ echo "maven package..."
 mvn clean package -Dmaven.test.skip=true
 echo "copy scripts..."
 cp bin/* ${WORLD_PATH}
-chmod +x ${WORLD_PATH}/*
+chmod +x ${WORLD_PATH}/*.sh
 rm -f ${WORLD_PATH}/install.sh
 echo "copy jars..."
 cd target

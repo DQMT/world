@@ -73,13 +73,32 @@ showlog() {
 }
 
 upgrade() {
+    WORLD_PATH=`pwd`
     if [[ ${APP_SRC_PATH} -eq "" ]]; then
         echo "please set APP_SRC_PATH in this script first!"
+        exit 1
     elif [[ ! -d ${APP_SRC_PATH} ]]; then
         echo "${APP_SRC_PATH} is not a folder!"
+        exit 1
     else
         echo "now upgrade start..."
     fi
+    cd ${APP_SRC_PATH}
+    echo "git pull..."
+    git pull
+    echo "maven package..."
+    mvn clean package -Dmaven.test.skip=true
+    echo "copy scripts..."
+    cp -f bin/* ${WORLD_PATH}
+    chmod +x ${WORLD_PATH}/*.sh
+    rm -f ${WORLD_PATH}/install.sh
+    echo "copy jars..."
+    cd target
+    cp -f world-0.0.1-SNAPSHOT.jar ${WORLD_PATH}/${JAR_NAME}.jar
+    echo "copy resources..."
+    tar -xvf world-0.0.1-SNAPSHOT-resources.tar
+    cp -f application.properties ${WORLD_PATH}/
+    echo "upgrade finish, please use 'sh world.sh restart' to restart app!"
 }
 
 case "$1" in
