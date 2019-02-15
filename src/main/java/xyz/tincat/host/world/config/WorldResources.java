@@ -1,6 +1,6 @@
 package xyz.tincat.host.world.config;
 
-import java.util.Objects;
+import java.io.InputStream;
 
 /**
  * @ Date       ：Created in 10:58 2019/2/15
@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class WorldResources {
 
-    public static String getResourcesFile(String filename) {
-        return Objects.requireNonNull(WorldResources.class.getClassLoader().getResource("files/" + filename)).getFile();
+    public static InputStream getResourcesFile(String filename) {
+        return WorldResources.class.getResourceAsStream("/files/" + filename);
     }
 }

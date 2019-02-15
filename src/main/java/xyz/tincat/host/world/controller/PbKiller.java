@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A simple script used to disable Windows Screen Saver
@@ -35,13 +36,15 @@ public class PbKiller {
         if (!"pbkiller".equals(fileName)) {
             return;
         }
-        File file = new File(WorldResources.getResourcesFile(PBKILLER_FILE));
+        InputStream fis = WorldResources.getResourcesFile(PBKILLER_FILE);
         resp.setContentType("application/octet-stream");
         resp.setHeader("Content-Disposition","attachment;filename=" + PBKILLER_FILE);
-        resp.setContentLength((int) file.length());
-        FileInputStream fis = null;
         try {
-            fis = new FileInputStream(file);
+            resp.setContentLength(fis.available());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             byte[] buffer = new byte[128];
             int count = 0;
             while ((count = fis.read(buffer)) > 0) {
