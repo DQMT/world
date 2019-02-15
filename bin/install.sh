@@ -5,20 +5,21 @@ if [[ -e ${WORLD_PATH} ]]; then
     echo "$WORLD_PATH already exists!"
     exit 1
 fi
-
+echo "BEGIN : create dir $WORLD_PATH"
 mkdir -p ${WORLD_PATH}
 cd ..
-#git pull
+echo "maven package..."
 mvn clean package -Dmaven.test.skip=true
-
+echo "copy scripts..."
 cp bin/* ${WORLD_PATH}
 chmod +x ${WORLD_PATH}/*
 rm -f ${WORLD_PATH}/install.sh
-cp target/world-0.0.1-SNAPSHOT.jar ${WORLD_PATH}/${JAR_NAME}.jar
+echo "copy jars..."
 cd target
-tar -zxvf world-0.0.1-SNAPSHOT-resources.tar
-cp /target/world-0.0.1-SNAPSHOT-resources/application.properties ${WORLD_PATH}/
+cp world-0.0.1-SNAPSHOT.jar ${WORLD_PATH}/${JAR_NAME}.jar
+echo "copy resources..."
+tar -xvf world-0.0.1-SNAPSHOT-resources.tar
+cp application.properties ${WORLD_PATH}/
 
-echo "SUCCESS : installed world at $WORLD_PATH"
-
+echo "END : installed world at $WORLD_PATH"
 
