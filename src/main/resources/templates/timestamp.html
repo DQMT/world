@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="icon" type="image/x-icon" href="img/sbt.ico">
+    <title>timestamp</title>
+    <script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
+    <script>document.write("<script type='text/javascript' src='/timestamp.js?v=" + Date.now() + "'><\/script>");</script>
+    <style type="text/css">
+        #fp {
+            width: 800px
+        }
+        .param {
+        display: none
+        }
+    </style>
+</head>
+<body>
+<p>everything about Unix timestamp</p>
+<ul>
+    <li>
+        now : <input id="timestamp" type="text" name="ts">
+    </li>
+</ul>
+<input class="param" id="timezone" th:value="${timezone}"/>
+</body>
+
+</html>
