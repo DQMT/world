@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="icon" type="image/x-icon" href="img/sbt.ico">
+    <title>storage</title>
+    <script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
+    <script>document.write("<script type='text/javascript' src='/storage.js?v=" + Date.now() + "'><\/script>");</script>
+    <style type="text/css">
+        #fp {
+            width: 800px
+        }
+    </style>
+</head>
+<body>
+<p> put and get ! </p>
+<ul>
+    <li> upload :
+        <input id="fp" type="text" name="path">
+        <input onclick="req();" type="submit" value="OK">
+    </li>
+    <li>progress :
+        <progress id="proc" max="100"></progress>
+    </li>
+    <li><p>Pls find it below:</p></li>
+</ul>
+<div id="tar">
+    <!--<a class="link" href="javascript:void(0);"></a>-->
+</div>
+
+</body>
+
+</html>
