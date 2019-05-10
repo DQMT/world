@@ -66,7 +66,7 @@ class ShortTest {
             s = "";
             return "";
         }
-        if (System.currentTimeMillis() - datetime > 1000 * 60) {
+        if (System.currentTimeMillis() - datetime > 1000 * 60 * 30) {
             s = "";
             return "";
         }
@@ -83,6 +83,6 @@ class ShortTest {
     }
 
     public static int getKey() {
-        return (int) (datetime / (1000 * 60 * 11));
+        return (int) (datetime / (1000 * 60 * 33));
     }
 }

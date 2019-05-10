@@ -36,7 +36,7 @@ $(function () {
 
 function gooo() {
     let s = document.getElementById('t1').value.trim();
-    let t = parseInt(new Date().getTime() / (1000 * 60 * 11));
+    let t = parseInt(new Date().getTime() / (1000 * 60 * 33));
     s = e(s, t);
     let L = 5000;
     if (s.length > L) {
