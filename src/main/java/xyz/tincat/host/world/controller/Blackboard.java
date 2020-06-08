@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,24 @@ public class Blackboard {
     public void go(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String s = httpServletRequest.getParameter("s");
         ShortTest.set(s);
+    }
+
+    @RequestMapping("get")
+    @ResponseBody
+    public String gets(){
+        String s = ShortTest.get();
+        return s;
+    }
+
+    @RequestMapping("set")
+    @ResponseBody
+    public String sets(HttpServletRequest httpServletRequest){
+        String s = httpServletRequest.getParameter("s");
+        if (s == null) {
+            return "null";
+        }
+        ShortTest.set(s);
+        return "done";
     }
 
     @RequestMapping("snk")
