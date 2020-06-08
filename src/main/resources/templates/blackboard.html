@@ -24,6 +24,12 @@
             </div>
         </div>
         <div class="col-md-10 column">
+            <div>
+                <p>TRY API SET: cat docker-compose.yaml | xargs | awk {print s= $0} | xargs -I {} curl -G --data-urlencode {} tincat.top/blackboard/set</p>
+            </div>
+            <div>
+                <p>TRY API GET: curl tincat.top/blackboard/get</p>
+            </div>
             <textarea id="t1" rows="26" style="min-width: 90%;float:left" ></textarea>
             <!--<textarea id="t1" th:cols="100" th:rows="30"  ></textarea>-->
             <button type="button" onclick="cooo();" class="btn btn-default" style="margin:10%; float:left">Compress</button>
