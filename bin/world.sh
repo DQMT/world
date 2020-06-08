@@ -1,5 +1,5 @@
 #!/bin/sh
-APP_SRC_PATH=
+APP_SRC_PATH=$APP_SRC_PATH
 APP_NAME="world"
 JAVA_OPTS="-Xms256m -Xmx256m -Dfile.encoding=UTF-8"
 JAR_NAME="world-latest"
